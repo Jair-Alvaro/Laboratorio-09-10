@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('autos', function (Blueprint $table) {
+        Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
-            $table->string('marca');
-            $table->string('color');
+            $table->string('comentario');
+            $table->integer('estado');
+            $table->unsignedBigInteger('fotos_id');
+            $table->foreign('fotos_id')->references('id')->on('fotos');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('comentarios');
     }
 };
